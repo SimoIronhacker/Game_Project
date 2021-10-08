@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap");
 
 * {
   box-sizing: border-box;
@@ -18,64 +18,79 @@ body {
   background-repeat: no-repeat !important ;
   text-transform: uppercase;
   text-decoration: solid;
-} 
-  h1   {
-    margin-bottom: 3rem;
-    text-transform: uppercase;
-    font-size: 3rem;
-  }
+}
+h1 {
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+  font-size: 3rem;
+  color: #ffa502;
+}
 
+h2 {
+  background-color: #0c73f39e;
+  padding: 0.2em;
+  border-radius: 8px;
+}
 
-  span, i {
-      color: #ffa502;
-    }
-  
-  h3 {
-    color: #ffa502;
-    font-size: 1.5rem;
-  }
-  .container .choices {
-      display: flex;
-      flex-wrap: wrap;
-      margin: 3rem auto 3rem;
-      width: 500px;
-  }
-  .container    button {
-        flex: 1 0 45%;
-        width: 200px;
-        height: 80px;
-        border-radius: 5px;
-        cursor: pointer;
-        border: none;
-        margin: .4rem;
-        outline: none;
-        background: #dfe4ea;
-        user-select: none;
-        font-weight: 600;
-  }
-  .container       button:hover {
-          background: #ffa502;
-          transition: .5s;
-        }
-        
-        .container  button:active {
-          transform: scale(.9);
-          transition: transform .1s;
-        }
-      
-        .container  p {
-          font-size: 1.3rem;
-          margin: 0;
-        }
-      
-    
-  
-  #progress {
-    font-size: 1.3rem;
-    color: #ffa502;
-  }
+span,
+i {
+  color: inherit;
+}
 
+h3 {
+  color: #ffa502;
+  font-size: 1.5rem;
+}
+.container .choices {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 3rem auto 3rem;
+  width: 500px;
+}
+.container button {
+  flex: 1 0 45%;
+  width: 200px;
+  height: 80px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  margin: 0.4rem;
+  outline: none;
+  background: #0c69db;
+  user-select: none;
+  font-weight: 600;
+}
+.container button:hover {
+  background: #ffa502;
+  transition: 0.5s;
+}
 
+.container button:active {
+  transform: scale(0.9);
+  transition: transform 0.1s;
+}
 
+.container p {
+  font-size: 1.3rem;
+  margin: 0;
+}
 
+.wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 
+#progress {
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  color: orange;
+  justify-items: center;
+  font-weight: bold;
+  background-color: blue;
+  width: fit-content;
+}
+
+.is-hidden {
+  display: none;
+}

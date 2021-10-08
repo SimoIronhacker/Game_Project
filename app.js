@@ -1,3 +1,10 @@
+const music = new Audio('audio/queen.mp3');
+
+music.addEventListener('canplaythrough', e => {
+  music.play()
+})
+
+
 class Question {
   constructor(text, choices, answer, image) {
     this.text = text;
@@ -12,15 +19,14 @@ class Question {
 
 let questions = [
   new Question(
-    "Whish football staduim known as The Theatre of Dreams ?",
+    "Which football staduim known as The Theatre of Dreams ?",
     ["Parc des Princes", "Old Traford", "Santiago Bernabéu", "The Anfield"],
     "Old Traford",
     "OldTrafford1.png"
-    // "route/vers/une/image.png"
   ),
 
   new Question(
-    "Whish football staduim known as The Bullring ?",
+    "Which football staduim known as The Bullring ?",
     [
       "Borg El Arab Stadium",
       "Stade des Martyrs",
@@ -31,25 +37,25 @@ let questions = [
     "WanderersStadium2.png"
   ),
   new Question(
-    "Whish football staduim known as The Kop ?",
+    "Which football staduim known as The Kop ?",
     ["San Siro", "Emirates Stadium", "The Anflied", "Camp Nou"],
     "The Anflied",
     "TheAnflied3.png"
   ),
   new Question(
-    "Whish football staduim known as The Ashburton Grove ?",
+    "Which football staduim known as The Ashburton Grove ?",
     ["The Olympico", "Alianz Arena", "Emirates Staduim", "Stade de Luz"],
     "Emirates Staduim",
     "EmiratesStaduim4.png"
   ),
   new Question(
-    "Whish football staduim known as The Venue of Legends ?",
+    "Which football staduim known as The Venue of Legends ?",
     ["The Bombonera", "Signal Iduna Park", "Millerntor Stadiom", "Wembly"],
     "Wembly",
     "Wembly5.png"
   ),
   new Question(
-    "Whish football staduim known as Stadio Guiseppe Meazza ?",
+    "Which football staduim known as Stadio Guiseppe Meazza ?",
     ["Madison", "San Siro", "Stade Artemio-Franchi", "Stadio Olimpico"],
     "San Siro",
     "SanSiro6.png"
@@ -61,7 +67,7 @@ let questions = [
     "AllianzArena7.png"
   ),
   new Question(
-    "Whish football staduim known as The Bombonea ?",
+    "Which football staduim known as The Bombonera ?",
     [
       "Diego Armando Maradona Stadium",
       "Borussia-Park",
@@ -72,20 +78,20 @@ let questions = [
     "BocaJuniorsStadium8.png"
   ),
   new Question(
-    "Whish football staduim known as The Lane ?",
+    "Which football staduim known as The Lane ?",
     ["Home Park", "Celtic Park ", "Boleyn Ground", "White Hart Lane"],
     "White Hart Lane",
     "WhiteHartlane9.png"
   ),
   new Question(
-    "Whish football staduim known as The Big Egg ?",
+    "Which football staduim known as The Big Egg ?",
     ["Beijing National Stadium", "Tokyo Dome", "Estadio Leon", "Celtic Park"],
     "Tokyo Dome",
     "TokyoDome10.png"
   ),
 ];
 
-console.log("questions ???");
+console.log(questions);
 console.log(questions);
 
 class Quiz {
@@ -114,14 +120,18 @@ class Quiz {
       audioObj = new Audio("audio/NulGermainloser.mp3");
       console.log("mauvaise réponse");
     }
-   // document.querySelector("#audioObj").addEventListener("ended", yourFunct, false);
+    // document.querySelector("#audioObj").addEventListener("ended", yourFunct, false);
     // trouver un moyen de savoir quand l'audio a finit de jouer ???
     // travailler avec de l'asynchrone ...
     audioObj.play();
     audioObj.addEventListener("ended", () => {
-        console.log("hello le son a fini de jouer")
-        quizApp()
-    })
+      console.log("hello le son a fini de jouer");
+      quizApp();
+
+
+    });
+
+
     // sinon jouer son défaite
   }
   hasEnded() {
@@ -143,10 +153,15 @@ const display = {
   },
   endQuiz: function () {
     const endQuizHTML = `
+    
         <h1>Quiz completed !</h1>
         <h3> Your score is : ${quiz.score} / ${quiz.questions.length}</h3>`;
     this.elementShown("quiz", endQuizHTML);
+    
+
   },
+
+
   question: function () {
     this.elementShown("question", quiz.getCurrentQuestion().text);
   },
@@ -156,19 +171,15 @@ const display = {
     const guessHandler = (id, guess) => {
       document.getElementById(id).onclick = function () {
         quiz.guess(guess);
-        guessHndler.getElementById('player')
-        setTimeout(quizApp); {
-            player.play();
 
-            setTimeout(quizApp); {
-                player.pause();
-                player.curretTime = 0;
-
-            }; 2000
-        }; 1000
+        let buttons = document.querySelectorAll(".choices > button");
+        buttons.forEach((btn) => (btn.disabled = true));
+        setTimeout(() => {
+          buttons.forEach((btn) => (btn.disabled = false));
+        }, 4000);
         // attendre la fin de l'audio pour passer à la suite ...
         // setTimeout ???
-        // quizApp();
+        quizApp();
       };
     };
     // display choices and handle guess
@@ -185,6 +196,49 @@ const display = {
     );
   },
 };
+
+const quit = document.querySelector(".quit");
+quit.addEventListener("click", exitQuiz);
+
+function exitQuiz() {
+  console.log("ExitQuiz)");
+  // cacher la div#quiz en ajoutant la class CSS is-hidden
+  const quizElement = document.getElementById("quiz");
+   quizElement.classList.add("is-hidden")
+
+   // faire apparaître div#gif en enlevant la class CSS is-hidden
+   const gifElement = document.getElementById("gif");
+   gifElement.classList.remove("is-hidden")
+
+  console.log(quizElement, gifElement);
+}
+const play = document.querySelector(".replay");
+play.addEventListener("click", restart);
+
+
+
+function restart() {
+  console.log("restart");
+  quiz.currentQuestionIndex = 0
+  const quizElement = document.getElementById("quiz");
+   quizElement.classList.remove("is-hidden")
+   const gifElement = document.getElementById("gif");
+   gifElement.classList.add("is-hidden")
+
+   
+
+
+  display.question();
+    display.choices();
+    display.progress();
+    display.image();
+    music.pause()
+    music.currentTime = 0;
+    music.start()
+  
+}
+
+
 
 // Game logic
 function quizApp() {
